@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -21,8 +21,6 @@ namespace ProjectMovieThisIsIt
         }
         // Create an instance of a ListView column sorter and assign it 
         // to the ListView control.
-
-        private static bool selected;
 
         LoM movies = new LoM();
         List<Movie> lista = new List<Movie>
@@ -106,11 +104,6 @@ namespace ProjectMovieThisIsIt
                 ThanksForVoting.Text = "";
 
                 myRatecomboBox.Visible = true;
-                selected = true;
-            }
-            else
-            {
-                selected = false;
             }
         }
 
@@ -125,8 +118,7 @@ namespace ProjectMovieThisIsIt
 
         private void CreateComponents()
         {
-            LogIn f1 = new LogIn();
-            przywitanie.Text = "Witaj " + f1.fo;
+            przywitanie.Text = "Witaj ";
 
         }
 
@@ -152,33 +144,24 @@ namespace ProjectMovieThisIsIt
 
         }
 
-        public int fi
-        {
-            get { return Convert.ToInt32(myRatecomboBox.SelectedItem); }
-            set { myRatecomboBox.SelectedItem = value; }
-
-        }
 
 
         private void myRatecomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            label11.Text = AddRate().ToString();
+            double eeee = Convert.ToDouble(label11.Text);
+            eeee = Math.Round(eeee, 2);
+            label11.Text = eeee.ToString();
+            myListView.SelectedItems[0].SubItems[3].Text = eeee.ToString();
+            label5.Text = PlusPlus().ToString();
+            myRatecomboBox.Visible = false;
+            ThanksForVoting.Text = "Dziękujemy za oddanie głosu! ;) ";
 
             foreach (Movie m in lista)//nie działa a powinno 
             {
                 if (myListView.SelectedItems[0].SubItems[6].Text == m.IdMovie.ToString())
                     m.AvgRate = AddRate();
             }
-
-            myListView.SelectedItems[0].SubItems[3].Text = AddRate().ToString();
-            label11.Text = AddRate().ToString();
-            double eeee = Convert.ToDouble(label11.Text);
-            eeee = Math.Round(eeee, 2);
-            label11.Text = eeee.ToString();
-            label5.Text = PlusPlus().ToString();
-            myRatecomboBox.Visible = false;
-            ThanksForVoting.Text = "Dziękujemy za oddanie głosu! ;) ";
-
-
         }
 
         private void myListView_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -210,4 +193,3 @@ namespace ProjectMovieThisIsIt
 
     }
 }
-
